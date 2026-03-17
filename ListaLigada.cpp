@@ -87,7 +87,7 @@ void tratarOpcao(No *Lista, int opc)
 			break;
 		case 3: insereFim(Lista);
 			break;
-		case 4: //insereInicio(Lista);
+		case 4: insereInicio(Lista);
 			break;
 		case 5: //retiraFim(Lista);
 			break;
@@ -135,7 +135,16 @@ No *alocaMemoria()
 		return novo;
 	}
 }
-
+//Função para inserir um Nó no inicio da Lista
+void insereInicio(No *Lista)
+{
+	No* novo = alocaMemoria();
+	No *head = Lista->prox;
+	Lista->prox = novo;
+	novo->prox = head;
+	puts("No inserido no INICIO da Lista!!!");
+	tamanho++;
+}
 //Função para inserir o Nó no fim da Lista
 void insereFim(No *Lista)
 {
