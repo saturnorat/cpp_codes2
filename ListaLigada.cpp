@@ -27,7 +27,7 @@ No *alocaMemoria();
 void insereFim(No *);
 No *retiraFim(No *);
 void insereInicio(No *);
-No *retiraInicio();
+No *retiraInicio(No *);
 void exibirLista(No *);
 void iniciarLista(No *);
 int menu();
@@ -89,9 +89,9 @@ void tratarOpcao(No *Lista, int opc)
 			break;
 		case 4: insereInicio(Lista);
 			break;
-		case 5: //retiraFim(Lista);
+		case 5: retiraFim(Lista);
 			break;
-		case 6: //retiraInicio(Lista);
+		case 6: retiraInicio(Lista);
 			break;
 		case 7: exit(0);
 		
@@ -161,6 +161,49 @@ void insereFim(No *Lista)
 	}
 	tamanho++;
 	puts("Novo elemento inserido com sucesso!!");
+}
+
+//Função para excluir um elemento do INICIO da Lista
+No *retiraInicio(No *Lista)
+{
+	if(Lista->prox == NULL)
+	{
+		puts("\nA lista esta vazia!!!");
+		return NULL;
+	}
+	else
+	{
+		No *tmp = Lista->prox;
+		Lista->prox = tmp->prox;
+		tamanho--;
+		puts("No retirado com sucesso!!");
+		return tmp;
+	}
+}
+
+//Função para retirar um Nó do fim da Lista
+No *retiraFim(No *Lista)
+{
+	if(Lista->prox == NULL)
+	{
+		puts("A lista ja esta VAZIA");
+		return NULL;
+	}
+	else
+	{
+		No *ultimo = Lista->prox;
+		No *penultimo = Lista;
+		
+		while(ultimo->prox != NULL)
+		{
+			penultimo = ultimo;
+			ultimo = ultimo->prox;
+		}
+		penultimo->prox = NULL;
+		puts("No excluido com sucesso!!");
+		tamanho--;
+		return ultimo;
+	}
 }
 
 //Função para exibir todo o conteúdo da Lista
