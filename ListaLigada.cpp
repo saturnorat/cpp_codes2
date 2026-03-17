@@ -226,6 +226,7 @@ void exibirLista(No *Lista)
 		tmp = Lista->prox;
 		printf("Lista: ");
 		while(tmp != NULL)
+		
 		{ 
 			printf("%s", tmp->nome);
 			printf("| %d", tmp->idade);
