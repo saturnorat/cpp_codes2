@@ -44,20 +44,61 @@ main()
 	}
 	else
 	{
-		insereFim(Lista);
+		int opc = 0;
+		do
+		{
+			opc = menu();
+			tratarOpcao(Lista, opc);
+			puts("\n\n\n");
+			system("pause");
+			system("cls");
+		}while(opc);
 	}
+	exibirLista(Lista);
 }//fim do programa
 
 //Função para apresentar oum menu ao usuário
 int menu()
 {
-	
+	int opc;
+	puts("Escolha sua opcao: ");
+	puts("-----------------------------------------");
+	printf("1 - Zerar a Lista\n");
+	printf("2 - Exibir a Lista\n");
+	printf("3 - Inserir elemento do FIM da Lista\n");
+	printf("4 - Inserir elemento do INICIO da Lista\n");
+	printf("5 - Excluir elemento do FIM da Lista\n");
+	printf("6 - Excluir elemento do INICIO da Lista\n");
+	printf("7 - Sair...\n");
+	puts("-----------------------------------------");
+	printf("Opcao: "); scanf("%d", &opc);
+	return opc;
 }
 
 //Função para tratar a escolha da opção do menu
 void tratarOpcao(No *Lista, int opc)
 {
-	
+	No *tmp;
+	switch(opc)
+	{
+		case 1: iniciarLista(Lista);
+			break;
+		case 2: exibirLista(Lista);
+			break;
+		case 3: insereFim(Lista);
+			break;
+		case 4: //insereInicio(Lista);
+			break;
+		case 5: //retiraFim(Lista);
+			break;
+		case 6: //retiraInicio(Lista);
+			break;
+		case 7: exit(0);
+		
+		default: puts("Opcao invalida!! Verifique!!!");
+			break;
+			
+	}//fim do switch
 }
 
 //Função para iniciar a Lista
@@ -99,7 +140,7 @@ No *alocaMemoria()
 void insereFim(No *Lista)
 {
 	No *novo = alocaMemoria();
-	novo->prox == NULL;
+	novo->prox = NULL;
 	if(vazia(Lista))
 		Lista->prox = novo;
 	else
@@ -116,6 +157,15 @@ void insereFim(No *Lista)
 //Função para exibir todo o conteúdo da Lista
 void exibirLista(No *Lista)
 {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //cor original
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	WORD saved_attributes;
+	
+	//Salvar os atributos de cores
+	GetConsoleScreenBufferInfo(hConsole,&consoleInfo);
+	saved_attributes = consoleInfo.wAttributes; //salva a cor original
+	
+	
 	if(vazia(Lista))
 		puts("\n======> Lista vazia!");
 	else
@@ -127,7 +177,9 @@ void exibirLista(No *Lista)
 		{ 
 			printf("%s", tmp->nome);
 			printf("| %d", tmp->idade);
-			printf("===>");
+			SetConsoleTextAttribute(hConsole,11); //define a cor do texto
+			printf(" ===> ");
+			SetConsoleTextAttribute(hConsole,saved_attributes);
 			tmp = tmp->prox;
 		}
 	}
